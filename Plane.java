@@ -1,4 +1,5 @@
 import greenfoot.*;
+import java.util.*;
 
 /**
  * Write a description of class plane here.
@@ -9,6 +10,7 @@ import greenfoot.*;
 public class Plane extends World
 {
  private static final int SEAT_NUMBER=137;
+ private ArrayList<Seat> seats=new ArrayList();
     /**
      * Constructor for objects of class plane.
      * 
@@ -17,7 +19,7 @@ public class Plane extends World
     {    
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
         super(1400, 700, 1); 
-
+        initSeats();
         prepare();
     }
 
@@ -27,10 +29,10 @@ public class Plane extends World
      */
     private void prepare()
     {
-  
+        Seat seat=new Seat(200,200);
             
           for(int i=0;i<SEAT_NUMBER;i++){
-            Passenger p=new Passenger(Passenger.STATE_IDLE);
+            Passenger p=new Passenger(seat);
             int x=10+i*20;
             int y=600;
             if(x>=1380){
@@ -41,5 +43,14 @@ public class Plane extends World
             addObject(p, x, y);
         }
   
+    }
+    
+    private void initSeats()
+    {
+        for(int i=0;i<6;i++)
+        {
+            Seat s=new Seat(200,340);
+            seats.add(s);
+        }
     }
 }

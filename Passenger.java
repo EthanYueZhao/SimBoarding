@@ -10,8 +10,10 @@ public class Passenger extends Actor
 {
     public static final int STATE_IDLE=0;
     private int state;
-    public Passenger(int idle){
-        this.state=idle;
+    private Seat destination;
+    public Passenger(Seat destination){
+        this.destination=destination;
+        this.state=STATE_IDLE;
     }
 
     private void addedToWorld(){
@@ -28,7 +30,7 @@ public class Passenger extends Actor
         switch(state)
         {
             case STATE_IDLE:
-               turnTowards(200,200);
+               turnTowards(destination.x,destination.y);
                move(1);
                break;
            

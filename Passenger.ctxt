@@ -1,6 +1,6 @@
 #BlueJ class context
-comment0.params=idle
-comment0.target=Passenger(int)
+comment0.params=destination
+comment0.target=Passenger(Seat)
 comment1.params=
 comment1.target=void\ addedToWorld()
 comment2.params=
