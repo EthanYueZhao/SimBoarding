@@ -4,7 +4,6 @@ comment0.target=Plane()
 comment0.text=\r\n\ Constructor\ for\ objects\ of\ class\ plane.\r\n\ \r\n
 comment1.params=
 comment1.target=void\ prepare()
-comment1.text=\r\n\ \u5F00\u59CB\u524D\u5148\u4E3A\u4F60\u7684\u5267\u672C\u521B\u5EFA\u573A\u666F\r\n\ \u6DFB\u52A0\u5143\u4EF6\u5230\u4F60\u7684\u573A\u666F\r\n
 comment2.params=
 comment2.target=void\ initSeats()
 numComments=3

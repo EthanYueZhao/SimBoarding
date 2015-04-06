@@ -9,8 +9,9 @@ import java.util.*;
  */
 public class Plane extends World
 {
-    private static final int SEAT_NUMBER=137;
-    private ArrayList<Seat> seats=new ArrayList();
+    public static final int SEAT_NUMBER=137;
+    public static ArrayList<Seat> seats=new ArrayList();
+
     /**
      * Constructor for objects of class plane.
      * 
@@ -23,12 +24,10 @@ public class Plane extends World
         prepare();
     }
 
-    /**
-     * 开始前先为你的剧本创建场景
-     * 添加元件到你的场景
-     */
-    private void prepare()
+        private void prepare()
     {
+        Timer timer=new Timer();
+        addObject(timer, 40,30 );
         Collections.shuffle(seats);
         for(int i=0;i<SEAT_NUMBER;i++){
             Seat s=seats.get(i);

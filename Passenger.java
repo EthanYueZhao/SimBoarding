@@ -73,6 +73,7 @@ public class Passenger extends Actor
             break;
 
             case STATE_SEATED:
+            destination.occupied=true;
             return;
 
         }       
