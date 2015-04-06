@@ -33,11 +33,15 @@ public class Plane extends World
         for(int i=0;i<SEAT_NUMBER;i++){
             Seat s=seats.get(i);
             Passenger p=new Passenger(s);
-            int x=10+i*20;
-            int y=600;
+            int x=200+i*20;
+            int y=530;
             if(x>=1380){
-                x=x-1380;
-                y=y+30;
+                x=x-1180;
+                y=y+25;
+            }
+            if(x>=1380){
+                x=x-1180;
+                y=y+25;
             }
 
             addObject(p, x, y);
@@ -49,9 +53,9 @@ public class Plane extends World
     {
         for(int i=0;i<3;i++)
         {
-            int x=200+i*45;
-            int a=340;
-            int b=300;
+            int x=202+i*45;
+            int a=345;
+            int b=305;
             int c=235;
             int d=195;            
             Seat s1=new Seat(x,a);

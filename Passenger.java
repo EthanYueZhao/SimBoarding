@@ -1,4 +1,5 @@
 import greenfoot.*;
+import java.util.*;
 
 /**
  * Write a description of class passenger here.
@@ -11,19 +12,19 @@ public class Passenger extends Actor
     public static final int STATE_IDLE=0;
     public static final int STATE_SEATED=1;
     public static final int STATE_MOVING=2;
-    private int current_state;
+    public int current_state;
     private Seat destination;
-    private Point checkPoint1=new Point(145,500);
-    private Point checkPoint2=new Point(145,267);
+    private Point checkPoint1=new Point(140,530);
+    private Point checkPoint2=new Point(140,270);
     private Point checkPoint3;
     private Point targetPoint;
     private int move_speed;
     public Passenger(Seat destination){
         this.destination=destination;
         this.current_state=STATE_IDLE;
-        checkPoint3=new Point(destination.x-20,267);
+        checkPoint3=new Point(destination.x-20,270);
         targetPoint=checkPoint1;
-        move_speed= Greenfoot.getRandomNumber(4);
+        move_speed= Greenfoot.getRandomNumber(4)+1;
     }
 
     private void addedToWorld(){
@@ -40,32 +41,49 @@ public class Passenger extends Actor
         switch(current_state)
         {
             case STATE_IDLE:
-            checkBlocked();
+            checkCurrentPoint();
+            turnTowards(targetPoint.x,targetPoint.y);
+                        if(!checkBlocked())
+            {
+                current_state=STATE_MOVING;
+            }
             break;
-            case STATE_MOVING:            
+            case STATE_MOVING: 
             checkCurrentPoint();
             turnTowards(targetPoint.x,targetPoint.y);
             move(1);
-            checkBlocked();
+            if(checkBlocked())
+            {
+                current_state=STATE_IDLE; 
+            }
             break;
 
             case STATE_SEATED:
-            break;
+            return;
 
-        }
-        // Add your action code here.
+        }       
     }
 
-    private void checkBlocked()
+    private boolean checkBlocked()
     {
-        Actor p = getOneObjectAtOffset(17, 0, Passenger.class);
-        if(p!=null)
-        {    
-            current_state=STATE_IDLE;   
-        }else
-        {
-            current_state=STATE_MOVING;  
+        //Actor p =getOneObjectAtOffset(2,1 , Passenger.class);
+        List<Passenger> ps= getIntersectingObjects( Passenger.class);
+        if(!ps.isEmpty())
+        {   
+            for(Passenger p: ps)   
+            {   
+                if(p.getX()>this.getX() & p.getX()<this.destination.x & p.getY()>this.getY() & p.getY()<this.destination.y
+                || p.getX()>this.getX() & p.getX()<this.destination.x & p.getY()<this.getY() & p.getY()>this.destination.y
+                ) 
+                {
+                    return true;                    
+                }else
+                {
+                    continue;
+                }
+            }
         }
+        return false;
     }
 
     private void checkCurrentPoint()
@@ -85,9 +103,10 @@ public class Passenger extends Actor
             targetPoint.x=destination.x;
             targetPoint.y=destination.y;
         }
-        if(x==destination.x & y==destination.y)
+        if(x==destination.x && y==destination.y)
         {
             current_state=STATE_SEATED;
+            return;
         }
     }
 }
