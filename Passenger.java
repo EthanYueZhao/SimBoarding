@@ -93,32 +93,29 @@ public class Passenger extends Actor
 
     private void waiting1()
     {
-        int notifyee_number=0;
+        if(notifyee1!=null & notifyee2!=null)
+        {
+            if(notifyee1.current_state==Passenger.STATE_WAITING2 & notifyee2.current_state==Passenger.STATE_WAITING2)
+            { current_state=STATE_MOVING;}
+        }
         if(notifyee1!=null)
         {
-            notifyee_number++;           
+            if(notifyee1.current_state==Passenger.STATE_WAITING2)
+            { current_state=STATE_MOVING;}      
         }
         if(notifyee2!=null)
         {
-            notifyee_number++; 
-        }
-        switch( notifyee_number)
-        {
-            case 1:
-            if(notifyee1.current_state==Passenger.STATE_WAITING2 | notifyee2.current_state==Passenger.STATE_WAITING2)
-            { current_state=STATE_MOVING;}
-            break;
-            case 2:
-            if(notifyee1.current_state==Passenger.STATE_WAITING2 & notifyee2.current_state==Passenger.STATE_WAITING2)
-            { current_state=STATE_MOVING;}
-            break;
-        }
+            if(notifyee2.current_state==Passenger.STATE_WAITING2)
+            { current_state=STATE_MOVING;}  
+        }        
     }
 
     private void waiting2()
     {
         if(notifier.current_state==Passenger.STATE_SEATED)
         {
+            targetPoint.x=destination.x;
+            targetPoint.y=destination.y;
             current_state=STATE_MOVING;
         }
     }
