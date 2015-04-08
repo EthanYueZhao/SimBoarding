@@ -10,7 +10,8 @@ import java.util.*;
 public class Plane extends World
 {
     public static final int SEAT_NUMBER=137;
-    public static ArrayList<Seat> seats=new ArrayList();
+    public static ArrayList<Seat> seats;//=new ArrayList();
+    public static ArrayList<Passenger> passengers;//=new ArrayList();
 
     /**
      * Constructor for objects of class plane.
@@ -20,30 +21,34 @@ public class Plane extends World
     {    
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
         super(1400, 700, 1); 
+        seats=new ArrayList();
+        passengers=new ArrayList();
         initSeats();
         prepare();
     }
 
-        private void prepare()
+    private void prepare()
     {
         Timer timer=new Timer();
         addObject(timer, 40,30 );
+        Strategy strategy=new Strategy();
+        addObject(strategy,40,60);
         Collections.shuffle(seats);
         for(int i=0;i<SEAT_NUMBER;i++){
             Seat s=seats.get(i);
             Passenger p=new Passenger(s);
-            int x=200+i*20;
-            int y=530;
-            if(x>=1380){
-                x=x-1180;
-                y=y+25;
-            }
-            if(x>=1380){
-                x=x-1180;
-                y=y+25;
-            }
-
-            addObject(p, x, y);
+            passengers.add(p);
+            //             int x=200+i*20;
+            //             int y=530;
+            //             if(x>=1380){
+            //                 x=x-1180;
+            //                 y=y+25;
+            //             }
+            //             if(x>=1380){
+            //                 x=x-1180;
+            //                 y=y+25;
+            //             }
+            //addObject(p, x, y);
         }
 
     }

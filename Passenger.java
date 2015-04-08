@@ -17,8 +17,9 @@ public class Passenger extends Actor
     public static final int STATE_ArrivedPoint2=5;
     public static final int STATE_WAITING1=6;
     public static final int STATE_WAITING2=7;
+    public static final int STATE_INIT=8;
     public int current_state;
-    private Seat destination;
+    public Seat destination;
     private Point checkPoint1=new Point(140,530);
     private Point checkPoint2=new Point(140,270);
     public Point checkPoint3;
@@ -29,15 +30,17 @@ public class Passenger extends Actor
     public Passenger notifier;
     public Passenger notifyee1;
     public Passenger notifyee2;
+    private boolean hasInformed;
 
     public Passenger(Seat destination){
         this.destination=destination;
-        this.current_state=STATE_IDLE;
+        this.current_state=STATE_INIT;
         checkPoint3=new Point(destination.x-20,270);
         targetPoint=new Point(checkPoint1.x,checkPoint1.y);
         move_speed= Greenfoot.getRandomNumber(4)+1;
         putting_time=Greenfoot.getRandomNumber(100);
         this.notifier=null;
+        hasInformed=false;
     }
 
     /**
@@ -50,9 +53,12 @@ public class Passenger extends Actor
         //turnTowards(targetPoint.x,targetPoint.y);
         switch(current_state)
         {
+            case STATE_INIT:
+            break;
+
             case STATE_IDLE:
             turnTowards(targetPoint.x,targetPoint.y);
-            idle();                   
+            idle();
             break;
 
             case STATE_MOVING:  
@@ -222,30 +228,14 @@ public class Passenger extends Actor
         }
     }
 
-    //     private boolean checkBlocked()
-    //     {
-    //         //Actor p =getOneObjectAtOffset(2,1 , Passenger.class);
-    //         List<Passenger> ps= getObjectsInRange(20, Passenger.class);
-    //         if(!ps.isEmpty())
-    //         {   
-    //             for(Passenger p: ps)   
-    //             {   
-    //                 if(p.getX()>this.getX() & p.getX()<this.destination.x & p.getY()>this.getY() & p.getY()<this.destination.y
-    //                 || p.getX()>this.getX() & p.getX()<this.destination.x & p.getY()<this.getY() & p.getY()>this.destination.y
-    //                 ) 
-    //                 {
-    //                     return true;                    
-    //                 }else
-    //                 {
-    //                     continue;
-    //                 }
-    //             }
-    //         }
-    //         return false;
-    //     }
-
     private void arrivedCheckPoint1()
     {
+        if(!hasInformed)
+        {
+            Strategy.counter++;
+            hasInformed=true;
+        }
+        
         Actor p =getOneObjectAtOffset(0,-15 , Passenger.class); 
         if(p!=null)
         {
