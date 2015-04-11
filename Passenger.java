@@ -38,7 +38,7 @@ public class Passenger extends Actor
         checkPoint3=new Point(destination.x-20,270);
         targetPoint=new Point(checkPoint1.x,checkPoint1.y);
         move_speed= Greenfoot.getRandomNumber(4)+1;
-        putting_time=Greenfoot.getRandomNumber(100);
+        putting_time=Greenfoot.getRandomNumber(500);
         this.notifier=null;
         hasInformed=false;
     }

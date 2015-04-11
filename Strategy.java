@@ -33,8 +33,9 @@ public class Strategy extends Actor
 
     public void act() 
     {
-        //execRandom();
-        execWinMidAil();
+        execRandom();
+        //execWinMidAil();
+        //execBackToFront();
     }   
 
     private void execRandom()
@@ -166,6 +167,116 @@ public class Strategy extends Actor
                 for(Passenger p: Plane.passengers)
                 {
                     if(p.destination.y==300 | p.destination.y==245 )
+                    {
+                        p.current_state=Passenger.STATE_IDLE;
+                    }                
+                }
+                phase3=false;
+                phase3_done=true;
+            }
+        }
+    }
+    
+     private void execBackToFront()
+    {
+        if(!phase3_done)
+        {
+            if(!added)
+            {
+                int x=200;
+                int y=530;
+                for(Passenger p: Plane.passengers)
+                {
+                    if(p.destination.x>820)
+                    {
+                        if(x>=1380){
+                            x=x-1180;
+                            y=y+25;
+                        }
+                        if(x>=1380){
+                            x=x-1180;
+                            y=y+25;
+                        }
+                        p.current_state=Passenger.STATE_IDLE;
+                        getWorld().addObject(p, x, y);
+                        x+=20;
+                    }                
+                }
+                for(Passenger p: Plane.passengers)
+                {
+                    if(p.destination.x>471 & p.destination.x<820)
+                    {
+                        if(x>=1380){
+                            x=x-1180;
+                            y=y+25;
+                        }
+                        if(x>=1380){
+                            x=x-1180;
+                            y=y+25;
+                        }
+                        p.current_state=Passenger.STATE_INIT;
+                        getWorld().addObject(p, x, y);
+                        x+=20;
+                    }                
+                }
+                for(Passenger p: Plane.passengers)
+                {
+                    if(p.destination.x<471)
+                    {
+                        if(x>=1380){
+                            x=x-1180;
+                            y=y+25;
+                        }
+                        if(x>=1380){
+                            x=x-1180;
+                            y=y+25;
+                        }
+                        p.current_state=Passenger.STATE_INIT;
+                        getWorld().addObject(p, x, y);
+                        x+=20;
+                    }                
+                }
+                added=true;
+            }
+
+            if(phase1)
+            {
+                for(Passenger p: Plane.passengers)
+                {
+                    if(p.destination.x>820)
+                    {
+                        p.current_state=Passenger.STATE_IDLE;
+                    }                
+                }
+                phase1=false;
+            }
+
+            if(counter>52 & counter<100)
+            {
+                phase2=true;
+            }        
+            if(!phase2_done & phase2)
+            {
+                for(Passenger p: Plane.passengers)
+                {
+                    if(p.destination.x>471 & p.destination.x<820)
+                    {
+                        p.current_state=Passenger.STATE_IDLE;
+                    }                
+                }
+                phase2=false;
+                phase2_done=true;
+            }
+
+            if(counter>99)
+            {
+                phase3=true;
+            }
+            if(!phase3_done & phase3)
+            {
+                for(Passenger p: Plane.passengers)
+                {
+                    if(p.destination.x<471 )
                     {
                         p.current_state=Passenger.STATE_IDLE;
                     }                
